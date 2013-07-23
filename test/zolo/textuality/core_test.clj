@@ -1,6 +1,6 @@
-(ns textuality.core-test
+(ns zolo.textuality.core-test
   (:require [clojure.test :refer :all]
-            [textuality.core :refer :all]))
+            [zolo.textuality.core :refer :all]))
 
 (deftest html-parsing
   (testing "parses text out of a dom document"

@@ -1,4 +1,4 @@
-(ns textuality.core)
+(ns zolo.textuality.core)
 
 (import 'org.jsoup.Jsoup)
 

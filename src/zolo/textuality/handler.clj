@@ -6,10 +6,9 @@
 
 (defroutes app-routes
   (GET "/" [] "Textuality web service")
-  (GET "/parse"  {{html :html} :params}
-       (textuality/text-from html))
-  (POST "/parse" {{html :html} :params}
-        (textuality/text-from html))
+  (POST "/parse"
+        {{html :html} :params}
+        (if (nil? html) {:status 400}  (textuality/text-from html)))
   (route/resources "/")
   (route/not-found "Not Found"))
 

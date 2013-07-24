@@ -4,6 +4,9 @@
   :license {:name "Eclipse Public License"
             :url "http://www.eclipse.org/legal/epl-v10.html"}
   :dependencies [[org.clojure/clojure "1.5.1"]
-                 [org.jsoup/jsoup "1.7.2" ]]
-  :main textuality.core
+                 [org.jsoup/jsoup "1.7.2" ]
+                 [compojure "1.1.5"]
+                 [ring-mock "0.1.5"]]
+  :plugins [[lein-ring "0.8.5"]]
+  :ring {:handler zolo.textuality.handler/app}
   )

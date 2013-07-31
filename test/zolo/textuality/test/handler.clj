@@ -17,11 +17,10 @@
   (testing "parse post route"
     (let [response (app (request :post "/parse" {"html" "foo"}))]
         (is (= (:status response) 200))
-        (is (= (:body response) "foo"))
-    )
-    )
+        (is (= (:body response) "foo"))))
+  
   (testing "error handling"
     (let [response (app (request :post "/parse" {} ))]
-      (is (= (:status response) 400)))
-  )
+      (is (= (:status response) 400))))
+  
 )

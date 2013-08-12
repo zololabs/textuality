@@ -6,7 +6,13 @@
   :dependencies [[org.clojure/clojure "1.5.1"]
                  [org.jsoup/jsoup "1.7.2" ]
                  [compojure "1.1.5"]
-                 [ring-mock "0.1.5"]]
+                 [ring-mock "0.1.5"]
+                 [ring-serve "0.1.2"]]
   :plugins [[lein-ring "0.8.5"]]
   :ring {:handler zolo.textuality.handler/app}
+  :repl-options {:init (do
+                         (use 'ring.util.serve) 
+                         (use 'clojure.pprint)
+                         (use 'clojure.test)
+                         )}
   )

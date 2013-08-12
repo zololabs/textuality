@@ -1,6 +1,6 @@
 (ns zolo.textuality.handler
   (:use compojure.core)
-  (:require [zolo.textuality.core :as textuality]
+  (:require [zolo.textuality.parser :as textuality]
             [compojure.handler :as handler]
             [compojure.route :as route]))
 
@@ -8,7 +8,7 @@
   (GET "/" [] "Textuality web service")
   (POST "/parse"
         {{html :html} :params}
-        (if (nil? html) {:status 400}  (textuality/text-from html)))
+        (if (nil? html) {:status 400}  (textuality/parse html)))
   (route/resources "/")
   (route/not-found "Not Found"))
 

@@ -8,11 +8,11 @@
            (parse "<html><div>Let's parse some html</div></html>"))))
 
   (testing "converts nested html dom to readable test"
-    (is (= "Let's parse some \nnested\n html"
+    (is (= "Let's parse some nested html"
            (parse "<html><div>Let's parse some <p>nested</p> html</div></html>"))))
   
   (testing "converts slightly comples html dom to readable test"
-    (is (= "This is \ncrazy"
+    (is (= "This is crazy"
            (parse "<html><div id=\"scissors\"><p>This is <em class=\"paper\">crazy</em></p></div></html>"))))
 
   (testing "weeds out nbsp tags from the html before parsing"
@@ -24,7 +24,7 @@
            (parse "<p>Let's add some copy&copy; tags</p>"))))
 
   (testing "cleanses input text before parsing"
-    (is (= "\n A yellow submarine!\n"
+    (is (= "A yellow submarine!"
            (parse "<div style=3D\"background-color:#FFFFFF\">A yellow submarine!</div>")
            )))
 

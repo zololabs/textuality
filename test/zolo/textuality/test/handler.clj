@@ -12,7 +12,7 @@
   (testing "parse route"
     (let [response (app (request :post "/parse" {"html" "<html>A <p>Sentence</p></html>"}))]
       (is (= (:status response) 200))
-      (is (= (:body response) "A \nSentence"))))
+      (is (= (:body response) "A Sentence"))))
 
   (testing "parse post route"
     (let [response (app (request :post "/parse" {"html" "<html>foo</html>"}))]

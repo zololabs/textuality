@@ -22,4 +22,4 @@
         ))))
 
 (defn parse [html]
-  (-> html zclean (Jsoup/clean (org.jsoup.safety.Whitelist/relaxed)) .getBytes java.io.ByteArrayInputStream. xml/parse print-tree))
+  (-> html zclean (Jsoup/clean (org.jsoup.safety.Whitelist/relaxed)) Jsoup/parse .body .text print-tree))

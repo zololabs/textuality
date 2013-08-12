@@ -8,8 +8,7 @@
             (.replace "&nbsp;" "")
             (.replace "&copy;" "")))
 
-(defn print-tree [html]
-  (def dom (xml/parse (java.io.ByteArrayInputStream. (.getBytes html))))
+(defn print-tree [dom]
   (loop [loc (zip/xml-zip dom) result []]
     (if (zip/end? loc)
       (clojure.string/join "\n" result)
@@ -23,4 +22,4 @@
         ))))
 
 (defn parse [html]
-  (-> html zclean print-tree))
+  (-> html zclean (Jsoup/clean (org.jsoup.safety.Whitelist/relaxed)) .getBytes java.io.ByteArrayInputStream. xml/parse print-tree))

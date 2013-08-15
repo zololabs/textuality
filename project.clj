@@ -14,5 +14,6 @@
                          (use 'ring.util.serve) 
                          (use 'clojure.pprint)
                          (use 'clojure.test)
+                         (use 'zolo.textuality.parser)
                          )}
   )

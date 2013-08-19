@@ -61,7 +61,7 @@
   (reset-link-counters)
    (loop [loc (zip/xml-zip dom) result [] link-names {} link-urls {}]
     (if (zip/end? loc)
-      (apply str (replace-links (reverse result) link-names link-urls))
+      (string/trim (apply str (replace-links (reverse result) link-names link-urls)))
       (let [node (zip/node loc)]
         (recur (zip/next loc)
                (parse-node node result)

@@ -23,8 +23,6 @@
     (is (= "A yellow submarine!"
            (parse "<div style=3D\"background-color:#FFFFFF\">A yellow submarine!</div>"))))
 
-  (comment - Condition not handled yet
-    (testing "converts nested html dom to readable test"
-     (is (= "Let's parse some \nnested\n html"
-            (parse "<html><div>Let's parse some <p>nested</p> html</div></html>"))))
-    ))
+  (testing "converts nested html dom to readable test"
+    (is (= "Let's parse some \nnested\n html"
+           (parse "<html><div>Let's parse some <p>nested</p> html</div></html>")))))

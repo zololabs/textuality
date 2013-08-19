@@ -33,20 +33,18 @@
     link-urls
   ))
 
-(defn parse-node [node result]
-  (if (map? node)
-    (cond
-     (and (= :a (node :tag)) (node :attrs))
-       (do
-         (swap! link-counter inc)
-         (conj result (link-placeholder)))
-     (and (node :content) (string? (first (node :content))))
-       (do
-         (swap! section-counter inc)
-         (conj result (str (first (node :content)) "\n")))
-     )
-    result
-    ))
+(defn parse-node [node result previous-node-link]
+  (cond
+   (and (string? node) (not previous-node-link))
+   (do
+     (swap! section-counter inc)
+     (conj result (str node "\n")))
+   (and (map? node) (= :a (node :tag)) (node :attrs))
+   (do
+     (swap! link-counter inc)
+     (conj result (link-placeholder)))
+   :else result
+   ))
 
 (defn format-link [line link-names link-urls]
    (str "[" (last (re-seq #"\d+" line)) "] " (link-names (keyword line)) "\n\t" (link-urls (keyword line)))
@@ -60,16 +58,21 @@
 (defn decode-quoted-printable [content]
   (.decode (new QuotedPrintableCodec) content)) 
 
+(defn is-link [node]
+  (and (map? node) (= :a (node :tag)) (node :attrs))
+  )
+
 (defn parse-tree [dom]
   (reset-link-counters)
-   (loop [loc (zip/xml-zip dom) result [] link-names {} link-urls {}]
+   (loop [loc (zip/xml-zip dom) result [] link-names {} link-urls {} previous-node-link false]
     (if (zip/end? loc)
-      (string/trim (apply str (replace-links (reverse result) link-names link-urls)))
+      (string/trim (apply str (replace-links result link-names link-urls)))
       (let [node (zip/node loc)]
         (recur (zip/next loc)
-               (parse-node node result)
+               (parse-node node result previous-node-link)
                (append-link-name node link-names)
-               (append-link-url node link-urls))
+               (append-link-url node link-urls)
+               (is-link node))
   ))))
 
 (defn parse [html]

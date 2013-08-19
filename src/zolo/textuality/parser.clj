@@ -56,11 +56,10 @@
     ))
 
 (defn decode-quoted-printable [content]
-  (.decode (new QuotedPrintableCodec) content)) 
+  (.decode (new QuotedPrintableCodec) content))  
 
 (defn is-link [node]
-  (and (map? node) (= :a (node :tag)) (node :attrs))
-  )
+  (and (map? node) (= :a (node :tag)) (node :attrs)))
 
 (defn parse-tree [dom]
   (reset-link-counters)

@@ -7,7 +7,8 @@
                  [org.jsoup/jsoup "1.7.2" ]
                  [compojure "1.1.5"]
                  [ring-mock "0.1.5"]
-                 [ring-serve "0.1.2"]]
+                 [ring-serve "0.1.2"]
+                 [commons-codec/commons-codec "1.4"]]
   :plugins [[lein-ring "0.8.5"]]
   :ring {:handler zolo.textuality.handler/app}
   :repl-options {:init (do

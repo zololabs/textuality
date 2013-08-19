@@ -2,7 +2,7 @@
   (:require [clojure.zip :as zip]
             [clojure.xml :as xml]
             [clojure.string :as string]))
-(import 'org.jsoup.Jsoup)
+(import 'org.apache.commons.codec.net.QuotedPrintableCodec)
 
 (defn zclean [s] (-> s (.replace "&nbsp;" "") (.replace "&copy;" "")))
 (def not-nil? (comp not nil?))
@@ -55,7 +55,10 @@
 (defn replace-links [result link-names link-urls]
   (for [line result]
     (string/replace line #"^__.*__$" (format-link line link-names link-urls))
-  ))
+    ))
+
+(defn decode-quoted-printable [content]
+  (.decode (new QuotedPrintableCodec) content)) 
 
 (defn parse-tree [dom]
   (reset-link-counters)
@@ -70,4 +73,4 @@
   ))))
 
 (defn parse [html]
-  (-> html zclean .getBytes java.io.ByteArrayInputStream. xml/parse parse-tree))
+  (-> html zclean decode-quoted-printable .getBytes java.io.ByteArrayInputStream. xml/parse parse-tree))

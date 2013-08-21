@@ -7,9 +7,17 @@
     (is (= "Let's parse some html"
            (parse "<html><div>Let's parse some html</div></html>"))))
 
+  (testing "converts a link to readable text"
+    (is (= "text \n[1] See more reports like this\n\thttp://u754798.sendgrid.org/wf/click?upn=uAyRCmYSPjbz43RAy9Uu-2Bi-2B8"
+           (parse "<html><div>text <a href=\"http://u754798.sendgrid.org/wf/click?upn=uAyRCmYSPjbz43RAy9Uu-2Bi-2B8\">See more reports like this</a></div></html>"))))
+  
+  (testing "converts simple html dom with a link to readable text"
+    (is (= "text \n[1] \n\thttp://www.google.com"
+           (parse "<html><div>text <a href=\"http://www.google.com\"></a></div></html>"))))
+
   (testing "converts slightly comples html dom to readable test"
     (is (= "This is \ncrazy"
-           (parse "<html><div id=3D\"scissors\"><p>This is <em class=3D\"paper\">crazy</em></p></div></html>"))))
+           (parse "<html><div id=\"scissors\"><p>This is <em class=\"paper\">crazy</em></p></div></html>"))))
   
   (testing "weeds out nbsp tags from the html before parsing"
     (is (= "Let's add some space"
@@ -21,7 +29,7 @@
 
   (testing "cleanses input text before parsing"
     (is (= "A yellow submarine!"
-           (parse "<div style=3D\"background-color:#FFFFFF\">A yellow submarine!</div>"))))
+           (parse "<div style=\"background-color:#FFFFFF\">A yellow submarine!</div>"))))
 
   (testing "converts nested html dom to readable test"
     (is (= "Let's parse some \nnested\n html"

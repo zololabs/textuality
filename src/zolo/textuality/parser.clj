@@ -75,4 +75,4 @@
   ))))
 
 (defn parse [html]
-  (-> html zclean decode-quoted-printable .getBytes java.io.ByteArrayInputStream. xml/parse parse-tree))
+  (-> html zclean .getBytes java.io.ByteArrayInputStream. xml/parse parse-tree))

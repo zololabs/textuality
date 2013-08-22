@@ -38,7 +38,7 @@
    (and (string? node) (not previous-node-link))
    (do
      (swap! section-counter inc)
-     (conj result (str node "\n")))
+     (conj result (str node)))
    (and (map? node) (= :a (node :tag)) (node :attrs))
    (do
      (swap! link-counter inc)

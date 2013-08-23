@@ -17,7 +17,7 @@
   (GET "/parse" {{html :html} :params}
        (if (nil? html)
          {:status 400}
-         (parser/parse html)))
+         (clojure.string/replace (parser/parse html) #"\n" "<br/>")))
   (route/resources "/")
   (route/not-found "Not Found"))
 

@@ -15,12 +15,9 @@
   (GET "/" [] "Textuality web service")
   (GET "/server/status" {params :params} (status params))
   (GET "/parse" {params :params}
-        (println "params = " params)
-        (comment (if (nil? html)
-          {:status 400}
-          (do
-            (println "calling parse with html: " html)
-            (parser/parse html)))))
+       (if (nil? html)
+         {:status 400}
+         (parser/parse html)))
   (route/resources "/")
   (route/not-found "Not Found"))
 

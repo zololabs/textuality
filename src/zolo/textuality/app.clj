@@ -14,7 +14,7 @@
 (defroutes app-routes
   (GET "/" [] "Textuality web service")
   (GET "/server/status" {params :params} (status params))
-  (GET "/parse" {params :params}
+  (GET "/parse" {{html :html} :params}
        (if (nil? html)
          {:status 400}
          (parser/parse html)))
